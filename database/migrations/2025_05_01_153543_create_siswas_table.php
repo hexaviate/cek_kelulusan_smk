@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('siswas', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
-            $table->string('password');
             $table->string('nis');
             $table->string('nama');
-            $table->date('tgl_lahir');
+            $table->string('kelas');
+            // $table->foreignId('nama_lembaga_id')->constrained()->onDelete('cascade');
             $table->foreignId('setting_id')->constrained()->onDelete('cascade');
+            $table->enum('bebas_perpus', ['ya','tidak'])->default('ya');
+            $table->enum('akademik', ['ya','tidak'])->default('ya');
+            $table->enum('administrasi', ['ya','tidak'])->default('ya');
+            $table->enum('keterangan', ['lulus','tidak_lulus'])->default('lulus');
+            $table->boolean('viewed')->default('0');
             $table->timestamps();
         });
     }

@@ -34,12 +34,24 @@ class SettingController extends Controller
             'nama_lembaga' => 'required',
             'logo' => 'required|mimes:jpg,png',
             'tapel' => 'required',
-            'is_active' => 'boolean'
         ]);
 
         if ($validate->fails()) {
-
+            return redirect()->route('setting.create')->withErrors($validate)->withInput();
         }
+
+        $imageName = time() . '.' . $request->logo->extension();
+
+        $request->logo->move(public_path('images'), $imageName);
+
+        Setting::create([
+            "nama_lembaga" => $request->nama_lembaga,
+            "logo" => $imageName,
+            "tapel" => $request->tapel,
+            "is_active" => $request->is_active
+        ]);
+
+        return redirect()->route('setting.index');
     }
 
     /**
@@ -55,7 +67,8 @@ class SettingController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $setting = Setting::findOrFail($id);
+        return view('content.setting.edit', compact('setting'));
     }
 
     /**
@@ -63,7 +76,38 @@ class SettingController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validate = Validator::make($request->all(), [
+            'nama_lembaga' => 'required',
+            'logo' => 'mimes:jpg,png',
+            'tapel' => 'required',
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->route('setting.edit')->withErrors($validate)->withInput();
+        }
+
+        if ($request->hasFile('logo')) {
+            $imageName = time() . '.' . $request->logo->extension();
+
+            $request->logo->move(public_path('images'), $imageName);
+
+            Setting::where('id', $id)->update([
+                "nama_lembaga" => $request->nama_lembaga,
+                "logo" => $imageName,
+                "tapel" => $request->tapel,
+                "is_active" => $request->is_active
+            ]);
+        } else {
+            Setting::where('id', $id)->update([
+                "nama_lembaga" => $request->nama_lembaga,
+                "tapel" => $request->tapel,
+                "is_active" => $request->is_active
+            ]);
+        }
+
+
+
+        return redirect()->route('setting.index');
     }
 
     /**
@@ -71,6 +115,8 @@ class SettingController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $setting = Setting::findOrFail($id);
+        $setting->delete();
+        return redirect()->route('setting.index');
     }
 }

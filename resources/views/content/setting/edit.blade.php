@@ -25,22 +25,24 @@
         <hr>
 
         {{-- form --}}
-        <form action="{{ route('setting.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('setting.update', $setting->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class=" mb-3">
                 <label class="form-label">Nama Lembaga:</label>
                 <input class="form-control mb-3" type="text" placeholder="Nama Lembaga"
-                    aria-label="default input example" name="nama_lembaga">
+                    aria-label="default input example" name="nama_lembaga"
+                    value="{{ old('nama_lembaga', $setting->nama_lembaga)}}">
             </div>
             <div class=" mb-3">
                 <label class="form-label">Logo Lembaga:</label>
-                <input class="form-control" type="file" id="formFile" name="logo">
+                <input class="form-control" type="file" id="formFile" name="logo" value="{{ old('logo', $setting->logo)}}">
 
             </div>
             <div class=" mb-3">
                 <label class="form-label">Tahun Pelajaran:</label>
                 <input class="form-control mb-3" type="text" placeholder="Tahun Pelajaran"
-                    aria-label="default input example" name="tapel">
+                    aria-label="default input example" name="tapel" value="{{ old('tapel', $setting->tapel)}}">
             </div>
             <div class=" mb-3">
                 <label class="form-label">Status:</label>
