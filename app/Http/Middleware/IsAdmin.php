@@ -20,7 +20,11 @@ class IsAdmin
 
         }
 
-        return redirect()->route('dashboard');
+        // dd(auth()->check());
+        return $next($request);
+
+        // return $next($request);
+        // return redirect()->route('home');
 
     }
 }

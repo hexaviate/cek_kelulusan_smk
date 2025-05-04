@@ -27,6 +27,11 @@
     <div class="container">
         <div class="row  justify-content-center">
             <div class="col-sm-12 col-md-8 col-lg-5 pt-5">
+                @if (Session::has('error'))
+                    <div class="alert alert-danger">
+                        {{ Session::get('error') }}
+                    </div>
+                @endif
                 <div class="card text-center items-center">
                     <div class="card-header">
                         <div class="d-flex justify-content-center pt-3">

@@ -15,7 +15,7 @@ class PengumumanController extends Controller
         ]);
 
         if($validator->fails()){
-            return redirect()->route('login')->with('error', 'NIS tidak ditemukan');
+            return redirect()->route('login')->with('error', 'NISN tidak ditemukan');
         }
 
         $siswa = Siswa::where('nis', $request->nis)->get();

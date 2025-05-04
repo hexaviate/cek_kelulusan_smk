@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>SIK - Login</title>
+    <title>SIK - Pengumuman</title>
     <style>
         body {
             background: url('assets/images/background.png');
@@ -124,9 +124,17 @@
                             </table>
                             <div class='form-group' style='margin-bottom: -10px;'>
                                 <p align='center'>
-                                    <a href='#' class='btn btn-primary ' target='_blank' rel='noopener noreferrer'>
+                                    @if ($item->bebas_perpus == 'ya' && $item->akademik == 'ya' && $item->administrasi == 'ya')
+                                    <a href='{{ asset('surat/foto1.png')}}' class='btn btn-primary ' target='_blank' rel='noopener noreferrer'>
                                         DONWLOAD SURAT KEPUTUSAN
                                     </a>
+
+                                    @else
+                                    <a href='#'  class='btn btn-warning '  rel='noopener noreferrer'>
+                                        ANDA BELUM MEMENUHI SYARAT
+                                    </a>
+
+                                    @endif
                                 </p>
                             </div>
 
@@ -146,7 +154,7 @@
                                             <b>SYARAT TERPENUHI ATAU TIDAK</b>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr align="left">
                                     <td>Bebas Perpus</td>
                                     <td colspan='3'>
                                         @if ($item->bebas_perpus == 'ya')
@@ -156,7 +164,7 @@
                                         @endif
                                     </td>
                                 </tr>
-                                <tr class='secondary'>
+                                <tr class='secondary' align="left">
                                     <td>Akademik</td>
                                     <td colspan='3'>
                                         @if ($item->akademik == 'ya')
@@ -166,7 +174,7 @@
                                         @endif
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr align="left">
                                     <td>Administrasi</td>
                                     <td colspan='3'>
                                         @if ($item->administrasi == 'ya')

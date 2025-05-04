@@ -344,7 +344,11 @@
                     <li>
                         <div class="dropdown-divider mb-0"></div>
                     </li>
-                    <li><a class="dropdown-item" href="javascript:;"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
+                    <li>
+                        <form action="{{ route('logoutAdmin') }}" method="POST">
+                            @csrf
+                            <input type="submit" class="dropdown-item" value="Log Out">
+                        </form>
                     </li>
                 </ul>
             </div>
